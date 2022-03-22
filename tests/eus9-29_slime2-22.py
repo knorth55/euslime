@@ -1846,7 +1846,8 @@ class eus(EuslimeTestCase):
             (self.assertAsyncRequest,
              ['(:emacs-rex (swank-repl:listener-eval "(loop)\n") "USER" :repl-thread 5)',
               '(:emacs-interrupt :repl-thread)'],
-             ['(:write-string "INTERRUPTION: keyboard interrupt\\n")',
+             ['(:write-string "{}: keyboard interrupt\\n")'.format(
+                 "\x1b[1;31mINTERRUPTION\x1b[0m" if self.USE_COLOR else "INTERRUPTION"),
               '(:new-package "USER" "B1-{}")'.format(self.EUSLISP_PROGRAM_NAME),
               '(:return (:abort "\'Keyboard Interrupt\'") 5)']),
             (self.assertSocket,
@@ -1866,7 +1867,8 @@ class eus(EuslimeTestCase):
               '(:emacs-interrupt 0)'],
              ['(:read-string 0 1)',
               '(:read-aborted 0 1)',
-              '(:write-string "INTERRUPTION: keyboard interrupt\\n")',
+              '(:write-string "{}: keyboard interrupt\\n")'.format(
+                  "\x1b[1;31mINTERRUPTION\x1b[0m" if self.USE_COLOR else "INTERRUPTION"),
               '(:new-package "USER" "B1-{}")'.format(self.EUSLISP_PROGRAM_NAME),
               '(:return (:abort "\'Keyboard Interrupt\'") 24)']),
             (self.assertSocket,
@@ -1879,7 +1881,8 @@ class eus(EuslimeTestCase):
             (self.assertAsyncRequest,
              ['(:emacs-interrupt :repl-thread)',
               '(:emacs-rex (swank:set-package "") "USER" :repl-thread 5)'],
-             ['(:write-string "INTERRUPTION: keyboard interrupt\\n")',
+             ['(:write-string "{}: keyboard interrupt\\n")'.format(
+                 "\x1b[1;31mINTERRUPTION\x1b[0m" if self.USE_COLOR else "INTERRUPTION"),
               '(:return (:ok ("USER" "B1-{}")) 5)'.format(self.EUSLISP_PROGRAM_NAME)]),
             (self.assertSocket,
              '(:emacs-rex (swank-repl:listener-eval "(reset)\n") "USER" :repl-thread 6)',
@@ -1893,7 +1896,8 @@ class eus(EuslimeTestCase):
               '(:emacs-interrupt :repl-thread)',
               '(:emacs-rex (swank:set-package "") "USER" :repl-thread 19)'],
              ['(:write-string "start\\n")',
-              '(:write-string "INTERRUPTION: keyboard interrupt\\n")',
+              '(:write-string "{}: keyboard interrupt\\n")'.format(
+                  "\x1b[1;31mINTERRUPTION\x1b[0m" if self.USE_COLOR else "INTERRUPTION"),
               '(:write-string "; Evaluation aborted on \'Keyboard Interrupt\'\\n" :repl-result)',
               '(:return (:ok nil) 18)',
               '(:return (:ok ("USER" "B1-{}")) 19)'.format(self.EUSLISP_PROGRAM_NAME)]),
@@ -1910,7 +1914,8 @@ class eus(EuslimeTestCase):
               '(:emacs-rex (swank:set-package "") "USER" :repl-thread 6)',],
              ['(:write-string "Loading file: {}/test_emacs_interrupt_5.l ...\\n")'.format(os.getcwd()),
               '(:write-string "start\\n")',
-              '(:write-string "INTERRUPTION: keyboard interrupt\\n")',
+              '(:write-string "{}: keyboard interrupt\\n")'.format(
+                  "\x1b[1;31mINTERRUPTION\x1b[0m" if self.USE_COLOR else "INTERRUPTION"),
               '(:write-string "; Evaluation aborted on \'Keyboard Interrupt\'\\n" :repl-result)',
               '(:return (:ok nil) 5)',
               '(:return (:ok ("USER" "B1-{}")) 6)'.format(self.EUSLISP_PROGRAM_NAME)]),
@@ -1933,7 +1938,8 @@ class eus(EuslimeTestCase):
             (self.assertAsyncRequest,
              ['(:emacs-interrupt :repl-thread)',
               '(:emacs-rex (swank:set-package "") "USER" :repl-thread 37)'],
-             ['(:write-string "INTERRUPTION: keyboard interrupt\\n")',
+             ['(:write-string "{}: keyboard interrupt\\n")'.format(
+                 "\x1b[1;31mINTERRUPTION\x1b[0m" if self.USE_COLOR else "INTERRUPTION"),
               '(:return (:ok ("USER" "B1-{}")) 37)'.format(self.EUSLISP_PROGRAM_NAME)]),
             (self.assertSocket,
              '(:emacs-rex (swank-repl:listener-eval "(reset)\n") "USER" :repl-thread 38)',
@@ -1977,7 +1983,8 @@ class eus(EuslimeTestCase):
              ['(:emacs-rex (swank-repl:listener-eval "(progn (unix:usleep 100000) t)\n") "USER" :repl-thread 11)',
               '(:emacs-interrupt :repl-thread)',
               '(:emacs-rex (swank:set-package "") "USER" :repl-thread 12)'],
-             ['(:write-string "INTERRUPTION: keyboard interrupt\\n")',
+             ['(:write-string "{}: keyboard interrupt\\n")'.format(
+                 "\x1b[1;31mINTERRUPTION\x1b[0m" if self.USE_COLOR else "INTERRUPTION"),
               '(:new-package "USER" "B1-{}")'.format(self.EUSLISP_PROGRAM_NAME),
               '(:return (:abort "\'Keyboard Interrupt\'") 11)',
               '(:return (:ok ("USER" "B1-{}")) 12)'.format(self.EUSLISP_PROGRAM_NAME)]),
@@ -1993,7 +2000,8 @@ class eus(EuslimeTestCase):
             (self.assertAsyncRequest,
              ['(:emacs-interrupt :repl-thread)',
               '(:emacs-rex (swank:set-package "") "USER" :repl-thread 5)'],
-             ['(:write-string "INTERRUPTION: keyboard interrupt\\n")',
+             ['(:write-string "{}: keyboard interrupt\\n")'.format(
+                 "\x1b[1;31mINTERRUPTION\x1b[0m" if self.USE_COLOR else "INTERRUPTION"),
               '(:return (:ok ("USER" "B1-{}")) 5)'.format(self.EUSLISP_PROGRAM_NAME)]),
             (self.assertSocket,
              '(:emacs-rex (swank-repl:listener-eval "(reset 1)\n") "USER" :repl-thread 6)',
